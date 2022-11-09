@@ -201,3 +201,27 @@ default-lease-time <time in seconds>;
 max-lease-time <time in seconds>;
 ```
 isi sesuai kebutuhan, yaitu 300 untuk default-lease-time dari subnet 1, 600 untuk default-lease-time dari subnet 3, dan 6900 untuk max-lease-time kedua subnet
+
+### Nomor 7
+
+Agar eden mendapatkan ip tetap, pertama, catat identifier dari port ethernet 0 pada eden dengan perintah `ip a`, lalu cek pada bagian link/ether seperti pada gambar berikut
+
+![image](https://user-images.githubusercontent.com/52820619/200841155-3bc722b5-13d3-45b1-af57-c4403680597f.png)
+
+lalu, seperti yang dilakukan di konfigurasi awal, tambahkan line `hwaddress ether <ethernet0 address>` pada bagian eth0
+
+Setelah itu, pada westalis, di file `/etc/dhcp/dhcpd.conf`, tambahkan sebagai berikut
+```
+host Eden {
+    hardware ethernet 9e:e5:3f:92:25:9d;
+    fixed-address 192.193.3.13;
+}
+```
+
+Setelah itu, restart dhcp server dengan perintah `service isc-dhcp-server restart`
+
+Setelah itu, lakukan restart pada node eden
+
+berikut ini merupakan ip dari eden
+
+![07  ip eden](https://user-images.githubusercontent.com/52820619/200830188-0d1f312b-cad0-4203-9e8e-fdade53fd3a3.png)
