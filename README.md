@@ -117,3 +117,32 @@ OPTIONS=""
 ```
 
 lalu, restart dhcp relay dengan perintah `service isc-dhcp-relay restart`
+
+### Nomor 3
+client melalui switch 1 akan mendapatkan ip dari 192.193.1.120 hingga 192.193.1.155.
+Pada westalis, di file `/etc/dhcp/dhcpd.conf`, tambahkan konfigurasi berikut
+```
+subnet 192.193.1.0 netmask 255.255.255.0 {
+    range 192.193.1.120 192.193.1.155;
+    option routers 192.193.1.1;
+    option broadcast-address 192.193.1.255;
+    option domain-name-servers 192.193.2.2;
+    default-lease-time 300;
+    max-lease-time 6900;
+}
+
+subnet 192.193.2.0 netmask 255.255.255.0 {
+}
+```
+
+setelah itu, restart dhcp server dengan perintah `service isc-dhcp-server restart`
+
+setelah itu, lakukan restart pada semua node client
+
+Berikut ini ip SSS
+
+![03  ip sss](https://user-images.githubusercontent.com/52820619/200829727-ad5499f6-834b-4193-8a5c-e55a95f6bbfe.png)
+
+Berikut ini ip Garden
+
+![03  ip garden](https://user-images.githubusercontent.com/52820619/200829725-86b3f0cf-7552-43b7-96e5-69e3d0b909f6.png)
