@@ -1,8 +1,8 @@
-# Laporan Resmi Praktikum Jaringan Komputer Modul 2
+# Laporan Resmi Praktikum Jaringan Komputer Modul 3
 
 ## Anggota Kelompok
-- 5025201248 - Fajar Zuhri Hadiyanto - pengerjaan bagian topologi, config ip, dan bagian proxy server
-- 5025201047 - Sidrotul Munawaroh - pengerjaan dhcp server dan dhcp relay
+- 5025201248 - Fajar Zuhri Hadiyanto -  dhcp server, dhcp relay, dan bagian proxy server
+- 5025201047 - Sidrotul Munawaroh - pengerjaan bagian topologi, config ip, dns server
 
 ## Layout
 ![00  topologi](https://user-images.githubusercontent.com/52820619/200829675-53cb00ee-570a-4b1e-a36f-4f10ddb4cf72.png)
@@ -323,3 +323,7 @@ berikut ini merupakan hasil testing speedtest pada saat weekdays
 berikut ini merupakan hasil testing speedtest pada saat weekend
 
 ![proxy rule 5 - weekends](https://user-images.githubusercontent.com/52820619/200829682-d792247c-504c-4f95-a5f0-2c2ab27ded4f.png)
+
+
+## Kesulitan
+- perlu banyak explorasi dengan potensi solusi yang banyak ditemukan di internet bisa lebih dari 1, jadi harus dicoba setiap potensi solusinya satu per satu, terutama bagian proxy
