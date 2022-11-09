@@ -243,12 +243,13 @@ loid-work.com
 franky-work.com
 ```
 
-lalu, pada file `/etc/squid/squid.conf`, lakukan import pada file acl yang sudah dibuat tadi dengan menambahkan code `include /etc/squid/acl.conf` pada bagian atas file, lalu pada bagian rule, isi dengan 
+lalu, pada file `/etc/squid/squid.conf`, lakukan import pada file acl yang sudah dibuat tadi dengan menambahkan code `include /etc/squid/acl.conf` pada bagian atas file, lalu pada bagian access list, isi dengan 
 ```
 http_access allow WORKING_SITES WORKING_TIME
 http_access deny WORKING_SITES
 http_access allow INTERNET_TIME_WEEKDEND
 http_access allow INTERNET_TIME_WEEKDAYS
+http_access deny WORKING_TIME
 http_access deny all
 ```
 
@@ -265,3 +266,28 @@ berikut ini hasil testing pada client di weekdays
 berikut ini hasil testing pada client di working hour
 
 ![proxy rule 1 - working hour](https://user-images.githubusercontent.com/52820619/200829699-ddc1fb9c-38a9-47f6-b582-4cbd7e4cd64d.png)
+
+### Proxy Server Rule 3
+
+klien tidak dapat mengakses internet dengan protokol http, maka port 80 (port default http) harus diblokir, pada file `/etc/squid/acl.conf`, tambahkan isi sebagai berikut
+```
+acl HTTP_PORT port 80
+```
+
+lalu pada file `/etc/squid/squid.conf`, ubah bagian access list sehingga menjadi seperti berikut
+
+```
+http_access deny HTTP_PORT
+http_access allow WORKING_SITES WORKING_TIME
+http_access deny WORKING_SITES
+http_access allow INTERNET_TIME_WEEKDEND
+http_access allow INTERNET_TIME_WEEKDAYS
+http_access deny WORKING_TIME
+http_access deny all
+```
+
+Setelah itu, jangan lupa restart squid dengan perintah `service squid restart`
+
+berikut ini hasil testing pada client
+
+![proxy rule 3](https://user-images.githubusercontent.com/52820619/200829690-b1def4eb-2def-4590-b964-108e09b039e4.png)
