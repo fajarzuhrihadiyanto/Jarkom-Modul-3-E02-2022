@@ -174,3 +174,21 @@ Berikut ini ip NewstoneCastle
 Berikut ini ip KemonoPark
 
 ![04  ip kemono park](https://user-images.githubusercontent.com/52820619/200829721-85c708fa-ec41-4eff-9e89-2d980ea69c18.png)
+
+### Nomor 5
+
+Agar klien yang terhubung ke dns wise dapat terkoneksi ke internet, maka setting konfigurasi dns forwarder pada file `/etc/bind/named.conf.options` dengan isi sebagai berikut
+```
+options {
+        directory "/var/cache/bind";
+        forwarders {
+                8.8.8.8;
+                8.8.8.4;
+        };
+        allow-query { any; };
+        auth-nxdomain no;    # conform to RFC1035
+        listen-on-v6 { any; };
+};
+```
+
+setelah itu, lakukan restart dns server dengan perintah `service bind9 restart`
