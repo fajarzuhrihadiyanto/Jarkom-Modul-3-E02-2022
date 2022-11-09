@@ -291,3 +291,35 @@ Setelah itu, jangan lupa restart squid dengan perintah `service squid restart`
 berikut ini hasil testing pada client
 
 ![proxy rule 3](https://user-images.githubusercontent.com/52820619/200829690-b1def4eb-2def-4590-b964-108e09b039e4.png)
+
+
+### Proxy Server Rule 4 dan 5
+akses internet dibatasi hingga 128kb/s pada waktu weekend. Tambahkan konfigurasi pada file `/etc/squid/squid.conf` setelah import dan sebelum access list sebagai berikut
+```
+delay_pools 1
+delay_class 1 1
+delay_access 1 allow INTERNET_TIME_WEEKDEND
+delay_parameters 1 16000/16000
+```
+
+dimana INTERNET_TIME_WEEKEND sudah didefinisikan saat konfigurasi di praktik rule 1 dan 2, dan 16000 didapat dari 128kbps dibagi dengan 8 (128000/8 = 16000)
+
+setelah itu, restart kembali dengan perintah `service squid restart`.
+
+Agar lebih mudah dalam melakukan pengujian, allow semua access list pada squid.
+
+Pada client, lakukan instalasi speedtest-cli dengan perintah sebagai berikut
+```
+apt-get update
+apt-get install speedtest-cli -y
+export http_proxy="http://192.193.2.3:8080"
+export https_proxy="http://192.193.2.3:8080"
+```
+
+berikut ini merupakan hasil testing speedtest pada saat weekdays
+
+![proxy rule 5 - weekdays](https://user-images.githubusercontent.com/52820619/200829687-c6242670-5a02-4816-946d-f80aa31fd79c.png)
+
+berikut ini merupakan hasil testing speedtest pada saat weekend
+
+![proxy rule 5 - weekends](https://user-images.githubusercontent.com/52820619/200829682-d792247c-504c-4f95-a5f0-2c2ab27ded4f.png)
