@@ -166,3 +166,11 @@ subnet 192.193.3.0 netmask 255.255.255.0 {
 setelah itu, restart dhcp server dengan perintah `service isc-dhcp-server restart`
 
 setelah itu, lakukan restart pada semua node client yang lewat switch 3
+
+Berikut ini ip NewstoneCastle
+
+![04  ip newstone castle](https://user-images.githubusercontent.com/52820619/200829724-3270e8eb-f713-4786-b290-53eeff403b33.png)
+
+Berikut ini ip KemonoPark
+
+![04  ip kemono park](https://user-images.githubusercontent.com/52820619/200829721-85c708fa-ec41-4eff-9e89-2d980ea69c18.png)
