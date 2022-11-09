@@ -192,3 +192,12 @@ options {
 ```
 
 setelah itu, lakukan restart dns server dengan perintah `service bind9 restart`
+
+### Nomor 6
+
+Seperti yang sudah dipaparkan pada nomor 4 mengenai konfigurasi DHCP server, pada bagian
+```
+default-lease-time <time in seconds>;
+max-lease-time <time in seconds>;
+```
+isi sesuai kebutuhan, yaitu 300 untuk default-lease-time dari subnet 1, 600 untuk default-lease-time dari subnet 3, dan 6900 untuk max-lease-time kedua subnet
