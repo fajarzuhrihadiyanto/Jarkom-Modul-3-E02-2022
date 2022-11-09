@@ -102,4 +102,18 @@ http_access deny all
 
 lakukan restart squid dengan perintah `service squid restart`
 
+### Nomor 2
+Ostania ditugaskan sebagai router sekaligus DHCP relay, lakukan instalasi dhcp relay dengan perintah 
+```
+apt-get update
+apt-get install isc-dhcp-relay
+```
 
+lalu, lakukan konfigurasi dhcp relay pada file `/etc/default/isc-dhcp-relay` dengan isi sebagai berikut
+```
+SERVERS="192.193.2.4"
+INTERFACES="eth1 eth3 eth2"
+OPTIONS=""
+```
+
+lalu, restart dhcp relay dengan perintah `service isc-dhcp-relay restart`
