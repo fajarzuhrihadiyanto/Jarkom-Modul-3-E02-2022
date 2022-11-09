@@ -225,3 +225,43 @@ Setelah itu, lakukan restart pada node eden
 berikut ini merupakan ip dari eden
 
 ![07  ip eden](https://user-images.githubusercontent.com/52820619/200830188-0d1f312b-cad0-4203-9e8e-fdade53fd3a3.png)
+
+### Proxy Server Rule 1 dan 2
+client hanya bisa mengakses internet di luar jam kerja (senin-jumat, 08:00-17:00), dimana pada jam kerja, website yang bisa diakses hanya loid-work.com dan franky work .com.
+Lakukan konfiguraasi, buat file `/etc/squid/acl.conf`, isi dengan 
+```
+acl WORKING_TIME time MTWHF 08:00-17:00
+acl INTERNET_TIME_WEEKDEND time SA 00:00-23:59
+acl INTERNET_TIME_WEEKDAYS time MTWHF 00:00-07:59
+acl INTERNET_TIME_WEEKDAYS time MTWHF 17:01-23:59
+acl WORKING_SITES dstdomain "/etc/squid/working-sites.acl"
+```
+
+lalu, tambahkan daftar whitelist site pada file `/etc/squid/working-sites.acl` dengan isi sebagai berikut
+```
+loid-work.com
+franky-work.com
+```
+
+lalu, pada file `/etc/squid/squid.conf`, lakukan import pada file acl yang sudah dibuat tadi dengan menambahkan code `include /etc/squid/acl.conf` pada bagian atas file, lalu pada bagian rule, isi dengan 
+```
+http_access allow WORKING_SITES WORKING_TIME
+http_access deny WORKING_SITES
+http_access allow INTERNET_TIME_WEEKDEND
+http_access allow INTERNET_TIME_WEEKDAYS
+http_access deny all
+```
+
+lalu, restart squid dengan perintah `service squid restart`
+
+berikut ini hasil testing pada client di weekend
+
+![proxy rule 1 - weekend](https://user-images.githubusercontent.com/52820619/200829693-65b6ce19-f3bc-482f-af91-9d122bfb7c2b.png)
+
+berikut ini hasil testing pada client di weekdays
+
+![proxy rule 1 - weekdays](https://user-images.githubusercontent.com/52820619/200829697-580d429e-9367-47c5-a3ab-f12bcbb3ee0d.png)
+
+berikut ini hasil testing pada client di working hour
+
+![proxy rule 1 - working hour](https://user-images.githubusercontent.com/52820619/200829699-ddc1fb9c-38a9-47f6-b582-4cbd7e4cd64d.png)
